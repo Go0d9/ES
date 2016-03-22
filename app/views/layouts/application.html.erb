@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ESForHostel</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="header">
+	<h1 align="center">
+		Экспертная ситема оценки льгот студентов для общежития
+	</h1>
+</div>
+<div class="left_col">
+	<p align="center">
+		Меню
+	</p>
+	<%= link_to 'Список студентов', students_path %>
+	<%= link_to 'Добавить студента', new_student_path %>
+	<%= link_to 'Список льгот', students_path %>
+	<%= link_to 'Добавить льготу', new_student_path %>
+</div>
+<div class="right_col">
+	<%= yield %>
+</div>
+	
+<div class="footer">
+	<p>
+		Александр Булыга ст. гр. 120602 © 2011-2016
+	</p>
+</div>
+
+</body>
+</html>
