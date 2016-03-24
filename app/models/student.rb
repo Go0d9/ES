@@ -4,6 +4,5 @@ class Student < ActiveRecord::Base
 	validates :group,  numericality: {greater_then: 0, allow_nil: true}, presence: true
 	validates :second_name, :first_name, :middle_name, presence: true
 
-	has_one :list_benefits
-	has_many :benefits
+	has_and_belongs_to_many :students
 end
