@@ -1,4 +1,4 @@
 class Benefit < ActiveRecord::Base
 	validates :title, :description, :coefficient, presence: true
-	has_and_belongs_to_many :benefits
+	has_and_belongs_to_many :students
 end
