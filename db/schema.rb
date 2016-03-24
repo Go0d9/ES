@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160322161702) do
+ActiveRecord::Schema.define(version: 20160323222231) do
 
   create_table "benefits", force: :cascade do |t|
     t.string   "title"
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(version: 20160322161702) do
     t.float    "coefficient"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "list_benefits", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "benefit_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "privileges", force: :cascade do |t|

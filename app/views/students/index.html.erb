@@ -12,10 +12,10 @@
 					<%= student.group %>
 				</td>
 				<td class="list_actions">
-					<%= link_to 'Show', student %><br/>
-					<%= link_to 'Edit', edit_student_path(student) %><br/>
-					<%= link_to 'Destroy', student,
-					confirm: 'Are you sure?',
+					<%= link_to 'Показать', student %><br/>
+					<%= link_to 'Редактировать', edit_student_path(student) %><br/>
+					<%= link_to 'Удалить', student,
+					confirm: 'Вы уверенны в этом?',
 					method: :delete %>
 				</td>
 			</tr>
