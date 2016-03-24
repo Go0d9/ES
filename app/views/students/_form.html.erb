@@ -26,6 +26,8 @@
 		<%= f.label "Группа" %><br />
 		<%= f.text_field :group %>
 	</div>
+	<%= select_tag(:benefit_id, options_for_select(@benefits), :prompt => "Select one!") %>
+		
 	<div class="actions">
 		<%= f.submit "Применить"%>
 	</div>

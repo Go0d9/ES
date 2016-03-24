@@ -9,13 +9,14 @@ class StudentsController < ApplicationController
 	end
 	def show
 		@student = Student.find(params[:id])
+		@benefits = @student.benefits #check this
 		unless @student
 			render text: "Page not faind", status: 404			
 		end
 	end
 	def new
 		@student = Student.new
-
+		@benefits = Benefit.all.map{|b| [ b.title, b.id ] }
 		respond_to do |format|
 			format.html # show.html.erb
 			format.json { render json: @student }
@@ -23,14 +24,16 @@ class StudentsController < ApplicationController
 	end
 	def edit
 		@student = Student.find(params[:id])
-		
+		@benefits = Benefit.all.map{|b| [ b.title, b.id ] }
 	end
 
 	def create
 		@student = Student.new(student_params)
-
+		@benefits = @student.benefits
+		@benefits = params[:benefit_id]
 		respond_to do |format|
 			if @student.save 
+				@benefits.save#check this turn
 				format.html { redirect_to @student, notice: 'Student was successfully created.' }
 				format.json {render json: @student, status: :created, location: @student }
 			else
@@ -44,8 +47,11 @@ class StudentsController < ApplicationController
 
 	def update
 		@student = Student.find(params[:id])
+		@benefits = @student.benefits
+		@benefits = params[:benefit_id]
 		respond_to do |format|
       if @student.update(student_params)
+      	@benefits.save#check this turn
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }
         format.json { head :no_content }
       else

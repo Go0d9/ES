@@ -1,2 +1,26 @@
 <h3><%= "#{@student.second_name} #{@student.first_name} #{@student.middle_name}"%></h3>
 <h2><%= @student.group %></h2>
+<h4>Льготы студента:</h4>
+<table>
+	<% if @student.benefits.empty? %>
+  У данного студента нет льгот!
+  <% else %>
+		<% @student.benefits.each do |benefit| %>
+				<tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
+					<td>
+						<%= "#{benefit.title} #{benefit.description}"%>
+					</td>
+					<td class="list_description">
+					<dl>
+						<%= benefit.coefficient %>
+					</td>
+					<td class="list_actions">
+						<%= link_to 'Удалить', benefit,
+						confirm: 'Вы уверены в этом?',
+						method: :delete %>
+					</td>
+				</tr>
+		</table>
+		<% end %>
+	<% end %>
+<br />
