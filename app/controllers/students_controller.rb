@@ -29,29 +29,27 @@ class StudentsController < ApplicationController
 
 	def create
 		@student = Student.new(student_params)
-		@benefits = @student.benefits
-		@benefits = params[:benefit_id]
+		benefit = Benefit.find(params[:benefit_id])
+		@student.benefits << benefit
 		respond_to do |format|
-			if @student.save 
-				@benefits.save#check this turn
+			if @student.save
 				format.html { redirect_to @student, notice: 'Student was successfully created.' }
 				format.json {render json: @student, status: :created, location: @student }
 			else
 				format.html {render action: "new"}
 				format.json {render json: @student.errors, status: unprocessable_entity}
-			end				
-		end	
+			end
+		end 
 	end
 
 
 
 	def update
 		@student = Student.find(params[:id])
-		@benefits = @student.benefits
-		@benefits = params[:benefit_id]
+		benefit = Benefit.find(params[:benefit_id])
+		@student.benefits << benefit
 		respond_to do |format|
       if @student.update(student_params)
-      	@benefits.save#check this turn
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }
         format.json { head :no_content }
       else
@@ -63,8 +61,9 @@ class StudentsController < ApplicationController
 
 	def destroy
 		@student = Student.find(params[:id])
-		@student.destroy
-
+		benefit = Benefit.find(params[:benefit_id])
+		@student.benefits << benefit
+		@student.benefits.destroy
 		respond_to do |format|
 			format.html {redirect_to students_url}
 			format.json { head :no_content }
