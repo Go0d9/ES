@@ -1,34 +1,22 @@
-<%= form_for(@student) do |f| %>
-	<% if @student.errors.any? %>
-		<div id="error_explanation">
-			<h2><%= pluralize(@student.errors.count, "error") %>
-			prohibited this student from being saved:</h2>
-			<ul>
-				<% @student.errors.full_messages.each do |msg| %>
-					<li><%= msg %></li>
-				<% end %>
-			</ul>
-		</div>
-	<% end %>
-	<div class="field">
-		<%= f.label "Фамилия" %><br />
-		<%= f.text_field :second_name %>
-	</div>
-	<div class="field">
-		<%= f.label "Имя" %><br />
-		<%= f.text_field :first_name %>
-	</div>
-	<div class="field">
-		<%= f.label "Отчество" %><br />
-		<%= f.text_field :middle_name %>
-	</div>
-	<div class="field">
-		<%= f.label "Группа" %><br />
-		<%= f.text_field :group %>
-	</div>
-	<%= select_tag(:benefit_id, options_for_select(@benefits), :prompt => "Select one!") %>
-		
-	<div class="actions">
-		<%= f.submit "Применить"%>
-	</div>
+<%= form_for @student do |f| %>
+  <%= f.label "Фамилия" %>
+  <%= f.text_field :second_name %>
+
+  <%= f.label "Имя" %>
+  <%= f.text_field :first_name %>
+
+  <%= f.label "Отчество" %>
+  <%= f.text_field :middle_name %>
+
+  <%= f.label "Группа" %>
+  <%= f.text_field :group %>
+  </br>
+  Льготы студента:
+    <ul>
+      <% @benefits.each do |benefit| %>
+        <%= check_box_tag(benefit.id) %>
+        <%= label_tag(benefit.title) %><br/>          
+      <% end %>
+    </ul>
+  <%= f.submit "Выполнить", :disable_with => 'Выполняется...' %>
 <% end %>

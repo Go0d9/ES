@@ -16,7 +16,8 @@ class StudentsController < ApplicationController
 	end
 	def new
 		@student = Student.new
-		@benefits = Benefit.all.map{|b| [ b.title, b.id ] }
+		@benefits= Benefit.all
+		@student.benefits.build
 		respond_to do |format|
 			format.html # show.html.erb
 			format.json { render json: @student }
@@ -24,7 +25,8 @@ class StudentsController < ApplicationController
 	end
 	def edit
 		@student = Student.find(params[:id])
-		@benefits = Benefit.all.map{|b| [ b.title, b.id ] }
+		@benefits= Benefit.all
+		@student.benefits.build
 	end
 
 	def create
@@ -46,8 +48,7 @@ class StudentsController < ApplicationController
 
 	def update
 		@student = Student.find(params[:id])
-		benefit = Benefit.find(params[:benefit_id])
-		@student.benefits << benefit
+		#@student.benefits << benefit
 		respond_to do |format|
       if @student.update(student_params)
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }
@@ -76,6 +77,6 @@ class StudentsController < ApplicationController
     render_404 unless @student
   end
   def student_params
-    params.require(:student).permit(:first_name, :second_name, :middle_name, :group)
+    params.require(:student).permit(:first_name, :second_name, :middle_name, :group, benefits_attributes: [:id, :title])
   end
 end

@@ -5,4 +5,5 @@ class Student < ActiveRecord::Base
 	validates :second_name, :first_name, :middle_name, presence: true
 
 	has_and_belongs_to_many :benefits
+	accepts_nested_attributes_for :benefits
 end
