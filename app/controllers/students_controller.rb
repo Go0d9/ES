@@ -48,7 +48,7 @@ class StudentsController < ApplicationController
 
 
 	def update
-		@student = Student.new(student_params)
+		@student = Student.find(params[:id])
 		benefit = Benefit.find(params[:activated])
 		@student.benefits << benefit
 		respond_to do |format|
