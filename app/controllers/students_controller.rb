@@ -16,8 +16,9 @@ class StudentsController < ApplicationController
 	end
 	def new
 		@student = Student.new
-		@benefits= Benefit.all
-		@student.benefits.build
+		@benefits = Benefit.all
+		console
+
 		respond_to do |format|
 			format.html # show.html.erb
 			format.json { render json: @student }
@@ -31,7 +32,7 @@ class StudentsController < ApplicationController
 
 	def create
 		@student = Student.new(student_params)
-		benefit = Benefit.find(params[:benefit_id])
+		benefit = Benefit.find(params[:activated])
 		@student.benefits << benefit
 		respond_to do |format|
 			if @student.save
@@ -47,8 +48,9 @@ class StudentsController < ApplicationController
 
 
 	def update
-		@student = Student.find(params[:id])
-		#@student.benefits << benefit
+		@student = Student.new(student_params)
+		benefit = Benefit.find(params[:activated])
+		@student.benefits << benefit
 		respond_to do |format|
       if @student.update(student_params)
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }
@@ -62,9 +64,7 @@ class StudentsController < ApplicationController
 
 	def destroy
 		@student = Student.find(params[:id])
-		benefit = Benefit.find(params[:benefit_id])
-		@student.benefits << benefit
-		@student.benefits.destroy
+		@student.destroy
 		respond_to do |format|
 			format.html {redirect_to students_url}
 			format.json { head :no_content }
@@ -75,6 +75,19 @@ class StudentsController < ApplicationController
   def find_student
     @student = Student.where(id: params[:id]).first
     render_404 unless @student
+  end
+  def find_benefits
+		if request.post?
+	  activated_ids = params[:activated].collect {|id| id.to_i} if params[:activated]
+	  seen_ids = params[:seen].collect {|id| id.to_i} if params[:seen]
+	    if activated_ids
+	      seen_ids.each do |id|
+	        r = Benefit.find_by_id(id)
+	        r.activated = activated_ids.include?(id)
+	        r.save
+	      end
+	    end
+	  end  	
   end
   def student_params
     params.require(:student).permit(:first_name, :second_name, :middle_name, :group, benefits_attributes: [:id, :title])
