@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160324132039) do
+ActiveRecord::Schema.define(version: 20160415084355) do
 
   create_table "benefits", force: :cascade do |t|
     t.string   "title"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160324132039) do
     t.float    "coefficient"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "category_id"
   end
 
   create_table "benefits_students", force: :cascade do |t|
@@ -29,6 +30,12 @@ ActiveRecord::Schema.define(version: 20160324132039) do
   add_index "benefits_students", ["benefit_id"], name: "index_benefits_students_on_benefit_id"
   add_index "benefits_students", ["student_id"], name: "index_benefits_students_on_student_id"
 
+  create_table "categories", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "students", force: :cascade do |t|
     t.string   "second_name"
     t.string   "first_name"
@@ -37,6 +44,7 @@ ActiveRecord::Schema.define(version: 20160324132039) do
     t.boolean  "sex"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "possibility"
   end
 
 end

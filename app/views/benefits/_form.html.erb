@@ -10,6 +10,8 @@
 			</ul>
 		</div>
 	<% end %>
+	<%= f.label "Категория" %>
+  <%= f.collection_select :category_id, Category.all, :id, :title %>
 	<div class="field">
 		<%= f.label "Название" %><br />
 		<%= f.text_field :title %>

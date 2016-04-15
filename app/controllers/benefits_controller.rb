@@ -16,6 +16,7 @@ class BenefitsController < ApplicationController
 	def new
 		@benefit = Benefit.new
 
+
 		respond_to do |format|
 			format.html # show.html.erb
 			format.json { render json: @benefit }
@@ -28,6 +29,7 @@ class BenefitsController < ApplicationController
 
 	def create
 		@benefit = Benefit.new(benefit_params)
+#    @benefit.category_id = category.id
 
 		respond_to do |format|
 			if @benefit.save 
@@ -44,6 +46,7 @@ class BenefitsController < ApplicationController
 
 	def update
 		@benefit = Benefit.find(params[:id])
+
 		respond_to do |format|
       if @benefit.update(benefit_params)
         format.html { redirect_to @benefit, notice: 'Benefit was successfully updated.' }
@@ -66,11 +69,12 @@ class BenefitsController < ApplicationController
 		
 	end
   private
+    
   def find_benefit
     @benefit = Benefit.where(id: params[:id]).first
     render_404 unless @benefit
   end
   def benefit_params
-    params.require(:benefit).permit(:title, :description, :coefficient)
+    params.require(:benefit).permit(:title, :description, :coefficient, :category_id)
   end
 end

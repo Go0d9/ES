@@ -16,10 +16,12 @@
 	<p align="center">
 		Меню
 	</p>
-	<%= link_to 'Список студентов', students_path %>
-	<%= link_to 'Добавить студента', new_student_path %>
-	<%= link_to 'Список льгот', benefits_path %>
-	<%= link_to 'Добавить льготу', new_benefit_path %>
+	<%= link_to 'Список студентов', students_path %></br>
+	<%= link_to 'Добавить студента', new_student_path %></br>
+  <%= link_to 'Cписок категорий льгот', categories_path %></br>
+  <%= link_to 'Добавить категорию', new_category_path %></br>
+  <%= link_to 'Список льгот', benefits_path %></br>
+	<%= link_to 'Добавить льготу', new_benefit_path %></br>
 </div>
 <div class="right_col">
 	<%= yield %>

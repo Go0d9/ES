@@ -17,7 +17,7 @@ class StudentsController < ApplicationController
 	def new
 		@student = Student.new
 		@benefits = Benefit.all
-		console
+		
 
 		respond_to do |format|
 			format.html # show.html.erb
@@ -32,8 +32,9 @@ class StudentsController < ApplicationController
 
 	def create
 		@student = Student.new(student_params)
-		benefit = Benefit.find(params[:activated])
+		benefit = Benefit.find(params[:benefit_ids])
 		@student.benefits << benefit
+		@student.possibility = sum_student_benefits / total_weight #total it is a method application_controller
 		respond_to do |format|
 			if @student.save
 				format.html { redirect_to @student, notice: 'Student was successfully created.' }
@@ -49,7 +50,7 @@ class StudentsController < ApplicationController
 
 	def update
 		@student = Student.find(params[:id])
-		benefit = Benefit.find(params[:activated])
+		benefit = Benefit.find(params[:benefit_ids])
 		@student.benefits << benefit
 		respond_to do |format|
       if @student.update(student_params)
@@ -64,6 +65,7 @@ class StudentsController < ApplicationController
 
 	def destroy
 		@student = Student.find(params[:id])
+		@benefit = @student.benefit(params[:id])
 		@student.destroy
 		respond_to do |format|
 			format.html {redirect_to students_url}
@@ -75,6 +77,10 @@ class StudentsController < ApplicationController
   def find_student
     @student = Student.where(id: params[:id]).first
     render_404 unless @student
+  end
+  def sum_student_benefits
+  	@student_benefits = @student.benefits.where(:student_id == params[:id])
+  	@sum_benefits = Benefit.where(:id == @student_benefits.benefit_id).sum(:coefficient)
   end
   def find_benefits
 		if request.post?
@@ -90,6 +96,6 @@ class StudentsController < ApplicationController
 	  end  	
   end
   def student_params
-    params.require(:student).permit(:first_name, :second_name, :middle_name, :group, benefits_attributes: [:id, :title])
+    params.require(:student).permit(:first_name, :possibility, :second_name, :middle_name, :group, benefits_attributes: [:id, :title])
   end
 end

@@ -2,16 +2,30 @@
 		Список льгот
 	</h2>
 	<table>
+	<tr>
+		<th colspan="3">Льгота</th>
+		<th colspan="5">Описание</th>
+		<th colspan="3">Категория</th>
+		<th colspan="3">Вес</th>
+		<th colspan="3">Действие</th>
+	</tr>
 		<% @benefits.each do |benefit| %>
 			<tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
-				<td>
-					<%= "#{benefit.title} #{benefit.description}"%>
+				<td colspan="3">
+					<%= benefit.title %>
 				</td>
-				<td class="list_description">
+				<td colspan="5">
+					<%= benefit.description %>
+				</td>
+				<td colspan="3">
+					 <%= benefit.category_id %>
+				</td>
+
+				<td colspan="3">
 				<dl>
 					<%= benefit.coefficient %>
 				</td>
-				<td class="list_actions">
+				<td colspan="3">
 					<%= link_to 'Show', benefit %><br/>
 					<%= link_to 'Edit', edit_benefit_path(benefit) %><br/>
 					<%= link_to 'Destroy', benefit,

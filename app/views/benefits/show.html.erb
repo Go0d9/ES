@@ -1,3 +1,4 @@
-<h3><%= "#{@benefit.title}"%></h3>
-<%= "#{@benefit.description}"%>
+<h3><%= @benefit.title%></h3>
+<h4><%= Category.find(@benefit.category_id).title %></h4>
+<%= @benefit.description %>
 <h2><%= @benefit.coefficient %></h2>

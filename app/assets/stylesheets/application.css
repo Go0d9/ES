@@ -22,7 +22,7 @@ div.header {
 div.left_col {
 	background-color:#dddddd; 
 	border-right:2px dashed #717dc9; 
-	width:198px; 
+	min-width:198px; 
 	height:400px; 
 	float:left
 }
@@ -34,6 +34,6 @@ div.right_col {
 	max-width:3800px; 
 	margin-left:200px; 
 	padding-left:20px;
-	margin-top: -20px;
+	margin: -18px;
 	position: static;
 }

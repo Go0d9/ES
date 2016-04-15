@@ -14,8 +14,7 @@
   Льготы студента:
     <ul>
       <% @benefits.each do |benefit| %>
-        <%= hidden_field_tag('seen[]', benefit.id) -%>
-        <%= check_box_tag 'activated[]', benefit.id -%>
+        <%= check_box_tag :benefit_ids, benefit.id %>
         <%= label_tag(benefit.title) %><br/>          
       <% end %>
     </ul>
